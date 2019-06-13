@@ -75,6 +75,8 @@ public class BallGame {
 					finished = true;
 					// Aufgabe 5: Gameover
 					// ...
+					var image = new ImageIcon("src/app/images/gameover.jpg").getImage();
+					myCanvas.drawImage(image, 340, 240);
 				}
 			}		
 			
