@@ -51,7 +51,9 @@ public class BallGame {
 		var r = new Random();
 		// Aufgabe 6: ein Ball ist nicht genug, oder?
 		// Erweitern Sie die Erzeugung mit Random Zahlen und generieren Sie B�lle in einer Schleife
-		balls.add( new BouncingBall(25, 35,  40,  new Color(r.nextInt(200)+56,r.nextInt(256),r.nextInt(256)), GROUNDLINE, myCanvas) );
+		for(var i = 0; i < 5; ++i) {
+			balls.add( new BouncingBall(20 + r.nextInt(80), 100,  20 + r.nextInt(60),  new Color(r.nextInt(200)+56,r.nextInt(256),r.nextInt(256)), GROUNDLINE, myCanvas) );
+		}
 		
 						
 		// draw every ball in the list
