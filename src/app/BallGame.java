@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
+
 
 /**
  * Class BallDemo - provides two short demonstrations showing how to use the 
@@ -79,6 +81,8 @@ public class BallGame {
 			// Aufgabe 3: Alle B�lle getroffen?
 			if (balls.size()==0) {
 				finished = true;
+				var image = new ImageIcon("src/app/images/gewonnen.jpg").getImage();
+				myCanvas.drawImage(image, 340, 240);
 				// Bild ausgeben, Gewonnen
 			}
 			
@@ -126,6 +130,7 @@ public class BallGame {
 			BouncingBall ball = dartOnBall(arg0.getX(), arg0.getY()); 
 			if (ball != null) {
 				// Aufgabe 5: Ball l�schen
+				ball.erase();
 				balls.remove(ball);
 				System.out.println("Balls remaining: " + balls.size());
 			} else {

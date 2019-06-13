@@ -1,30 +1,33 @@
 package app;
+
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Class Canvas - a class to allow for simple graphical 
- * drawing on a canvas.
+ * Class Canvas - a class to allow for simple graphical drawing on a canvas.
  * 
  * @author Michael Kolling (mik)
  * @author Bruce Quig
  *
- * @version 1.8  (23.01.2002)
+ * @version 1.8 (23.01.2002)
  */
 
 public class Canvas {
-	
+
 	public JFrame frame;
 	private CanvasPane canvas;
 	private Graphics2D graphic;
@@ -48,12 +51,14 @@ public class Canvas {
 		canvas.setPreferredSize(new Dimension(width, height));
 		backgroundColor = bgColor;
 		frame.pack();
-		
+		Cursor c = frame.getToolkit().createCustomCursor(new ImageIcon("src/app/images/dart.gif").getImage(), new Point(0, 0),
+				"Cursor");
+		frame.setCursor(c);
+
 		// Aufgabe 4: Hier den Cursor �ndern
-		//frame.setCursor( c );		
+		// frame.setCursor( c );
 	}
-	
-	
+
 	/*
 	 * Erm�glicht es dem Frame einen MouseListener anzuf�gen.
 	 */
@@ -62,11 +67,12 @@ public class Canvas {
 	}
 
 	/**
-	 * Set the canvas visibility and brings canvas to the front of screen
-	 * when made visible. This method can also be used to bring an already
-	 * visible canvas to the front of other windows.
-	 * @param visible  boolean value representing the desired visibility of
-	 * the canvas (true or false) 
+	 * Set the canvas visibility and brings canvas to the front of screen when made
+	 * visible. This method can also be used to bring an already visible canvas to
+	 * the front of other windows.
+	 * 
+	 * @param visible boolean value representing the desired visibility of the
+	 *                canvas (true or false)
 	 */
 	public void setVisible(boolean visible) {
 		if (graphic == null) {
@@ -84,15 +90,17 @@ public class Canvas {
 
 	/**
 	 * Provide information on visibility of the Canvas.
-	 * @return  true if canvas is visible, false otherwise
-	 */	
+	 * 
+	 * @return true if canvas is visible, false otherwise
+	 */
 	public boolean isVisible() {
 		return frame.isVisible();
 	}
 
 	/**
 	 * Draw the outline of a given shape onto the canvas.
-	 * @param  shape  the shape object to be drawn on the canvas
+	 * 
+	 * @param shape the shape object to be drawn on the canvas
 	 */
 	public void draw(Shape shape) {
 		graphic.draw(shape);
@@ -100,9 +108,10 @@ public class Canvas {
 	}
 
 	/**
-	 * Fill the internal dimensions of a given shape with the current 
-	 * foreground color of the canvas.
-	 * @param  shape  the shape object to be filled 
+	 * Fill the internal dimensions of a given shape with the current foreground
+	 * color of the canvas.
+	 * 
+	 * @param shape the shape object to be filled
 	 */
 	public void fill(Shape shape) {
 		graphic.fill(shape);
@@ -110,8 +119,8 @@ public class Canvas {
 	}
 
 	/**
-	 * Fill the internal dimensions of the given circle with the current 
-	 * foreground color of the canvas.
+	 * Fill the internal dimensions of the given circle with the current foreground
+	 * color of the canvas.
 	 */
 	public void fillCircle(int xPos, int yPos, int diameter) {
 		Ellipse2D.Double circle = new Ellipse2D.Double(xPos, yPos, diameter, diameter);
@@ -119,8 +128,8 @@ public class Canvas {
 	}
 
 	/**
-	 * Fill the internal dimensions of the given rectangle with the current 
-	 * foreground color of the canvas. This is a convenience method. A similar 
+	 * Fill the internal dimensions of the given rectangle with the current
+	 * foreground color of the canvas. This is a convenience method. A similar
 	 * effect can be achieved with the "fill" method.
 	 */
 	public void fillRectangle(int xPos, int yPos, int width, int height) {
@@ -140,20 +149,17 @@ public class Canvas {
 	}
 
 	/**
-	 * Erase the internal dimensions of the given circle. This is a 
-	 * convenience method. A similar effect can be achieved with
-	 * the "erase" method.
+	 * Erase the internal dimensions of the given circle. This is a convenience
+	 * method. A similar effect can be achieved with the "erase" method.
 	 */
 	public void eraseCircle(int xPos, int yPos, int diameter) {
-		Ellipse2D.Double circle = new Ellipse2D.Double(xPos, yPos, diameter,
-				diameter);
+		Ellipse2D.Double circle = new Ellipse2D.Double(xPos, yPos, diameter, diameter);
 		erase(circle);
 	}
 
 	/**
-	 * Erase the internal dimensions of the given rectangle. This is a 
-	 * convenience method. A similar effect can be achieved with
-	 * the "erase" method.
+	 * Erase the internal dimensions of the given rectangle. This is a convenience
+	 * method. A similar effect can be achieved with the "erase" method.
 	 */
 	public void eraseRectangle(int xPos, int yPos, int width, int height) {
 		erase(new Rectangle(xPos, yPos, width, height));
@@ -161,7 +167,8 @@ public class Canvas {
 
 	/**
 	 * Erase a given shape's interior on the screen.
-	 * @param  shape  the shape object to be erased 
+	 * 
+	 * @param shape the shape object to be erased
 	 */
 	public void erase(Shape shape) {
 		Color original = graphic.getColor();
@@ -173,7 +180,8 @@ public class Canvas {
 
 	/**
 	 * Erases a given shape's outline on the screen.
-	 * @param  shape  the shape object to be erased 
+	 * 
+	 * @param shape the shape object to be erased
 	 */
 	public void eraseOutline(Shape shape) {
 		Color original = graphic.getColor();
@@ -185,11 +193,12 @@ public class Canvas {
 
 	/**
 	 * Draws an image onto the canvas.
-	 * @param  image   the Image object to be displayed 
-	 * @param  x       x co-ordinate for Image placement 
-	 * @param  y       y co-ordinate for Image placement 
-	 * @return  returns boolean value representing whether the image was 
-	 *          completely loaded 
+	 * 
+	 * @param image the Image object to be displayed
+	 * @param x     x co-ordinate for Image placement
+	 * @param y     y co-ordinate for Image placement
+	 * @return returns boolean value representing whether the image was completely
+	 *         loaded
 	 */
 	public boolean drawImage(Image image, int x, int y) {
 		boolean result = graphic.drawImage(image, x, y, null);
@@ -199,9 +208,10 @@ public class Canvas {
 
 	/**
 	 * Draws a String on the Canvas.
-	 * @param  text   the String to be displayed 
-	 * @param  x      x co-ordinate for text placement 
-	 * @param  y      y co-ordinate for text placement
+	 * 
+	 * @param text the String to be displayed
+	 * @param x    x co-ordinate for text placement
+	 * @param y    y co-ordinate for text placement
 	 */
 	public void drawString(String text, int x, int y) {
 		graphic.drawString(text, x, y);
@@ -210,9 +220,10 @@ public class Canvas {
 
 	/**
 	 * Erases a String on the Canvas.
-	 * @param  text     the String to be displayed 
-	 * @param  x        x co-ordinate for text placement 
-	 * @param  y        y co-ordinate for text placement
+	 * 
+	 * @param text the String to be displayed
+	 * @param x    x co-ordinate for text placement
+	 * @param y    y co-ordinate for text placement
 	 */
 	public void eraseString(String text, int x, int y) {
 		Color original = graphic.getColor();
@@ -224,10 +235,11 @@ public class Canvas {
 
 	/**
 	 * Draws a line on the Canvas.
-	 * @param  x1   x co-ordinate of start of line 
-	 * @param  y1   y co-ordinate of start of line 
-	 * @param  x2   x co-ordinate of end of line 
-	 * @param  y2   y co-ordinate of end of line 
+	 * 
+	 * @param x1 x co-ordinate of start of line
+	 * @param y1 y co-ordinate of start of line
+	 * @param x2 x co-ordinate of end of line
+	 * @param y2 y co-ordinate of end of line
 	 */
 	public void drawLine(int x1, int y1, int x2, int y2) {
 		graphic.drawLine(x1, y1, x2, y2);
@@ -236,7 +248,8 @@ public class Canvas {
 
 	/**
 	 * Sets the foreground color of the Canvas.
-	 * @param  newColor   the new color for the foreground of the Canvas 
+	 * 
+	 * @param newColor the new color for the foreground of the Canvas
 	 */
 	public void setForegroundColor(Color newColor) {
 		graphic.setColor(newColor);
@@ -244,7 +257,8 @@ public class Canvas {
 
 	/**
 	 * Returns the current color of the foreground.
-	 * @return   the color of the foreground of the Canvas 
+	 * 
+	 * @return the color of the foreground of the Canvas
 	 */
 	public Color getForegroundColor() {
 		return graphic.getColor();
@@ -252,7 +266,8 @@ public class Canvas {
 
 	/**
 	 * Sets the background color of the Canvas.
-	 * @param  newColor   the new color for the background of the Canvas 
+	 * 
+	 * @param newColor the new color for the background of the Canvas
 	 */
 	public void setBackgroundColor(Color newColor) {
 		backgroundColor = newColor;
@@ -261,7 +276,8 @@ public class Canvas {
 
 	/**
 	 * Returns the current color of the background
-	 * @return   the color of the background of the Canvas 
+	 * 
+	 * @return the color of the background of the Canvas
 	 */
 	public Color getBackgroundColor() {
 		return backgroundColor;
@@ -269,7 +285,8 @@ public class Canvas {
 
 	/**
 	 * changes the current Font used on the Canvas
-	 * @param  newFont   new font to be used for String output
+	 * 
+	 * @param newFont new font to be used for String output
 	 */
 	public void setFont(Font newFont) {
 		graphic.setFont(newFont);
@@ -277,17 +294,19 @@ public class Canvas {
 
 	/**
 	 * Returns the current font of the canvas.
-	 * @return     the font currently in use
+	 * 
+	 * @return the font currently in use
 	 **/
-	
+
 	public Font getFont() {
 		return graphic.getFont();
 	}
 
 	/**
 	 * Sets the size of the canvas.
-	 * @param  width    new width 
-	 * @param  height   new height 
+	 * 
+	 * @param width  new width
+	 * @param height new height
 	 */
 	public void setSize(int width, int height) {
 		canvas.setPreferredSize(new Dimension(width, height));
@@ -300,17 +319,19 @@ public class Canvas {
 
 	/**
 	 * Returns the size of the canvas.
-	 * @return     The current dimension of the canvas
+	 * 
+	 * @return The current dimension of the canvas
 	 */
 	public Dimension getSize() {
 		return canvas.getSize();
 	}
 
 	/**
-	 * Waits for a specified number of milliseconds before finishing.
-	 * This provides an easy way to specify a small delay which can be
-	 * used when producing animations.
-	 * @param  milliseconds  the number 
+	 * Waits for a specified number of milliseconds before finishing. This provides
+	 * an easy way to specify a small delay which can be used when producing
+	 * animations.
+	 * 
+	 * @param milliseconds the number
 	 */
 	public void wait(int milliseconds) {
 		try {
@@ -321,9 +342,9 @@ public class Canvas {
 	}
 
 	/************************************************************************
-	 * Nested class CanvasPane - the actual canvas component contained in the
-	 * Canvas frame. This is essentially a JPanel with added capability to
-	 * refresh the image drawn on it.
+	 * Nested class CanvasPane - the actual canvas component contained in the Canvas
+	 * frame. This is essentially a JPanel with added capability to refresh the
+	 * image drawn on it.
 	 */
 	private class CanvasPane extends JPanel {
 		private static final long serialVersionUID = 1L;
